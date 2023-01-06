@@ -1,0 +1,42 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+scalar Datetime
+
+type Item {
+  id: ID!
+  category: ID!
+  description: String
+  created_at: Datetime
+  updated_at: Datetime
+}
+
+type ItemResult {
+  success: Boolean!
+  errors: [String]
+  data: Item
+}
+
+type ItemsResult {
+  success: Boolean!
+  errors: [String]
+  data: [Item]
+}
+
+type ItemMutationResult {
+  success: Boolean!
+  errors: [String]
+  data: [ID]
+}
+
+type Query {
+  listItems: ItemsResult!
+  getItem(id: ID!): ItemResult!
+  getItemsCreatedAfterDate(created_at: Datetime): ItemsResult!
+}
+
+type Mutation {
+  updateItemDescription(id: String!, description: String!): ItemMutationResult!
+}
